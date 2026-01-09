@@ -504,27 +504,29 @@ export default function App() {
       }
     };
 
-    useEffect(() => {
-      const handleTouchStart = () => {
-        if (!hasStarted) {
-          playBackgroundMusic();
-          setHasStarted(true);
-          return;
-        }
-
-        if (hasAnimationCompleted && isCandleLit) {
-          setIsCandleLit(false);
-          setFireworksActive(true);
-        }
-      };
-
-      window.addEventListener("pointerdown", handleTouchStart);
-      return () => window.removeEventListener("pointerdown", handleTouchStart);
-    }, [hasStarted, hasAnimationCompleted, isCandleLit, playBackgroundMusic]);
-
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [hasStarted, hasAnimationCompleted, isCandleLit, playBackgroundMusic]);
+
+  useEffect(() => {
+    const handleTouchStart = () => {
+      if (!hasStarted) {
+        playBackgroundMusic();
+        setHasStarted(true);
+        return;
+      }
+
+      if (hasAnimationCompleted && isCandleLit) {
+        setIsCandleLit(false);
+        setFireworksActive(true);
+      }
+    };
+
+    window.addEventListener("pointerdown", handleTouchStart);
+    return () => window.removeEventListener("pointerdown", handleTouchStart);
+  }, [hasStarted, hasAnimationCompleted, isCandleLit, playBackgroundMusic]);
+
+  //  }, [hasStarted, hasAnimationCompleted, isCandleLit, playBackgroundMusic]);
 
   const handleCardToggle = useCallback((id: string) => {
     setActiveCardId((current) => (current === id ? null : id));
